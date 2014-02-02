@@ -323,6 +323,7 @@ exports.BattleFormats = {
 			}
 		}
 	},
+
 	speciesclause: {
 		effectType: 'Rule',
 		onStart: function() {

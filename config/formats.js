@@ -50,6 +50,23 @@ exports.Formats = [
 		ruleset: ['Pokemon', 'Standard', 'Team Preview'],
 		banlist: ['Uber', 'Soul Dew', 'Gengarite', 'Kangaskhanite', 'Heracronite', 'OU', 'BL', 'Drizzle', 'Drought']
 	},
+
+	{
+		name: "Middle Cup",
+		section: "XY Singles",
+
+		ruleset: ['Pokemon', 'Team Preview', 'Standard'],
+		banlist: ['Illegal', 'Eviolite'],
+		maxLevel: 50,
+		defaultLevel: 50,
+		validateSet: function(set) {
+			var template = this.getTemplate(set.species || set.name);
+			if (!template.evos || template.evos.length === 0 || !template.prevo) {
+				return [set.species + " is not the middle Pokémon in an evolution chain."];
+			}
+		}
+	},
+	
 	{
 		name: "LC",
 		section: "XY Singles",
@@ -340,21 +357,6 @@ exports.Formats = [
 		onModifyMove: function(move) {
 			if (move.id === 'explosion') move.name = 'Firecrackers';
 			else if (move.type === 'Fire') move.name = 'Fireworks';
-		}
-	},
-	{
-		name: "Middle Cup",
-		section: "OM of the Month",
-
-		ruleset: ['Pokemon', 'Team Preview', 'Standard'],
-		banlist: ['Illegal', 'Eviolite'],
-		maxLevel: 50,
-		defaultLevel: 50,
-		validateSet: function(set) {
-			var template = this.getTemplate(set.species || set.name);
-			if (!template.evos || template.evos.length === 0 || !template.prevo) {
-				return [set.species + " is not the middle Pokémon in an evolution chain."];
-			}
 		}
 	},
 	{
