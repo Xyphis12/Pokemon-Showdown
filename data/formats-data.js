@@ -4509,7 +4509,7 @@ exports.BattleFormatsData = {
 	syclar: {
 	viableMoves: {"furyattack":1,"leer":1,"leechlife":1,"iceshard":1,"focusenergy":1,"icywind":1,"x-scissor":1,"hail":1},
 	isNonstandard: true,
-	tier: "CAPLC"
+	tier: "CAP"
 },
 	voodoom: {
 		viableMoves: {"aurasphere":1,"darkpulse":1,"taunt":1,"painsplit":1,"substitute":1,"hiddenpowerice":1,"vacuumwave":1},
