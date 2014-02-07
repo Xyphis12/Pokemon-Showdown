@@ -4506,11 +4506,41 @@ exports.BattleFormatsData = {
 		isNonstandard: true,
 		tier: "CAP"
 	},
+	breezi: {
+		viableMoves:{"spikes":1,"toxicspikes":1,"encore":1,"wish":1,"sludgebomb":1,"knockoff":1},
+		isNonstandard: true,
+		tier: "CAP"
+	},
+
+	cupra: {
+		viableMoves:{"megahorn":1,"closecombat":1,"psyshock":1,"willowisp":1,"bugbuzz":1,"protect":1,"toxic":1,"substitute":1},
+		isNonstandard: true,
+		tier: "CAP"
+	},
+
+	embirch: {
+		viableMoves:{"stealthrock":1,"synthesis":1,"leechseed":1,"substitute":1,"flamethrower":1,"gigadrain":1},
+		isNonstandard: true,
+		tier: "CAP"
+	},
+
+	flarelm: {
+		viableMoves:{"stealthrock":1,"synthesis":1,"leechseed":1,"substitute":1,"flamethrower":1,"gigadrain":1},
+		isNonstandard: true,
+		tier: "CAP"
+	},
+
+	necturine: {
+		viableMoves:{"willowisp":1,"shadowsneak":1,"toxic":1,"substitute":1},
+		isNonstandard: true,
+		tier: "CAP"
+	},
+
 	syclar: {
-	viableMoves: {"furyattack":1,"leer":1,"leechlife":1,"iceshard":1,"focusenergy":1,"icywind":1,"x-scissor":1,"hail":1},
-	isNonstandard: true,
-	tier: "CAP"
-},
+		viableMoves: {"furyattack":1,"leer":1,"leechlife":1,"iceshard":1,"focusenergy":1,"icywind":1,"x-scissor":1,"hail":1},
+		isNonstandard: true,
+		tier: "CAP"
+	},
 	voodoom: {
 		viableMoves: {"aurasphere":1,"darkpulse":1,"taunt":1,"painsplit":1,"substitute":1,"hiddenpowerice":1,"vacuumwave":1},
 		isNonstandard: true,
