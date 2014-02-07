@@ -701,7 +701,9 @@ var BattlePokemon = (function() {
 
 		if (!template.abilities) return false;
 		this.template = template;
+		this.types = template.types;
 		this.typesData = [];
+		this.types = template.types;
 		for (var i=0, l=this.types.length; i<l; i++) {
 			this.typesData.push({
 				type: this.types[i],
@@ -1128,17 +1130,21 @@ var BattlePokemon = (function() {
 		if (this.status) hpstring += ' ' + this.status;
 		return hpstring;
 	};
-	BattlePokemon.prototype.setType = function() {
-		this.typesData = Array.prototype.map.call(arguments, function(type) {
-			return {
-				type: type,
-				suppressed: false,
-				isAdded: false
-			}
-		});
+	BattlePokemon.prototype.setType = function(newType, enforce) {
+		// Arceus first type cannot be normally changed
+		if (!enforce && this.num === 493) return false;
+
+		this.typesData = [{
+			type: newType,
+			suppressed: false,
+			isAdded: false
+		}];
+
+		return true;
 	};
 	BattlePokemon.prototype.addType = function(newType) {
 		// removes any types added previously and adds another one
+
 		this.typesData = this.typesData.filter(function(typeData) {
 			return !typeData.isAdded;
 		}).concat([{
@@ -1146,6 +1152,8 @@ var BattlePokemon = (function() {
 			suppressed: false,
 			isAdded: true
 		}]);
+
+		return true;
 	};
 	BattlePokemon.prototype.getTypes = function(getAll) {
 		var types = [];
@@ -2338,8 +2346,6 @@ var Battle = (function() {
 			}
 			return;
 		}
-
-		this.add('callback', 'decision');
 	};
 	Battle.prototype.tie = function() {
 		this.win();
@@ -2459,6 +2465,19 @@ var Battle = (function() {
 		pokemon.update();
 		this.runEvent('SwitchIn', pokemon);
 		this.addQueue({pokemon: pokemon, choice: 'runSwitch'});
+		return true;
+	};
+	Battle.prototype.swapPosition = function(source, newPos) {
+		var target = source.side.active[newPos];
+		if (target.fainted) return false;
+		var side = source.side;
+		side.pokemon[source.position] = target;
+		side.pokemon[newPos] = source;
+		side.active[source.position] = side.pokemon[source.position];
+		side.active[newPos] = side.pokemon[newPos];
+		target.position = source.position;
+		source.position = newPos;
+		this.add('swap', source, target);
 		return true;
 	};
 	Battle.prototype.faint = function(pokemon, source, effect) {
