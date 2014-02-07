@@ -4543,6 +4543,24 @@ exports.BattleFormatsData = {
 		isNonstandard: true,
 		tier: "CAP"
 	},
+	scratchet: {
+		viableMoves:{"stealthrock":1,"roost":1,"bulkup":1,"brickbreak":1,"return":1},
+		isNonstandard: true,
+		tier: "CAP"
+	},
+
+	argalis: {
+		viableMoves:{"megahorn":1,"closecombat":1,"psyshock":1 ,"willowisp":1,"bugbuzz":1,"protect":1,"toxic":1,"substitute":1},
+		isNonstandard: true,
+		tier: "CAP"
+	},
+
+	brattler: {
+		viableMoves:{"aromatherapy":1,"synthesis":1,"foulplay":1,"suckerpunch":1,"knockoff":1,"seedbomb":1,"toxic":1,"sunnyday":1},
+		isNonstandard: true,
+		tier: "CAP"
+	},
+
 	voodoom: {
 		viableMoves: {"aurasphere":1,"darkpulse":1,"taunt":1,"painsplit":1,"substitute":1,"hiddenpowerice":1,"vacuumwave":1},
 		isNonstandard: true,
