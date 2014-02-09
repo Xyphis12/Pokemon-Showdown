@@ -4560,7 +4560,11 @@ exports.BattleFormatsData = {
 		isNonstandard: true,
 		tier: "CAP"
 	},
-
+	drasyl: {
+		viableMoves: {"moonblast":1,"dragonpulse":1,"dracometeor":1,"calmmind":1,"storedpower":1,"moonlight":1,"rest":1,"sleeptalk":1,"hypnosis":1,"dreameater":1,"voltswitch":1,"chargebeam":1,"thunderwave":1,"toxic":1,"hurricane":1,"hyperbeam":1,"calmmind":1,"flamethrower":1, "healbell":1,"airslash"},
+		isNonstandard: true,
+		tier: "Lab"
+	},
 	voodoom: {
 		viableMoves: {"aurasphere":1,"darkpulse":1,"taunt":1,"painsplit":1,"substitute":1,"hiddenpowerice":1,"vacuumwave":1},
 		isNonstandard: true,
