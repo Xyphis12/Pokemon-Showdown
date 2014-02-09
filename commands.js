@@ -519,14 +519,12 @@ var commands = exports.commands = {
 		});
 		**/
 		// Native code
-		console.log(target)
 		joinmsg = require('./config/joinmsg.js');
 		if (!joinmsg.joinmsg[target]) { 
 			console.log('No message for '+target)
 			var message = '|html|<div class="infobox" style="border-color:blue"><center>' +'<b><u>Welcome to '+target+'!</u></b><br />' + '</em></blockquote></div></font></center>'
 			return connection.sendTo(target,message)
 		}
-		console.log(joinmsg.joinmsg[target]);
 		return connection.sendTo(target,joinmsg.joinmsg[target])
 	},
 	
