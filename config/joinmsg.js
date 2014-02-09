@@ -3,7 +3,7 @@
 * This file uses key:value pairs to specify a join message for each channel
 * To add a message, simple create a new pair in the form of 'channel': 'message'.
 *
-* The protocol-doc.md file documents many aspects of the chat protical, 
+* The protocol-doc.md file documents many aspects of the chat protocol, 
 * including using HTML in a message.
 *
 * If you change this file, and want the changes to take effect, 
