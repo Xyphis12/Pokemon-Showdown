@@ -498,8 +498,35 @@ var commands = exports.commands = {
 		if (!user.joinRoom(targetRoom || room, connection)) {
 			return connection.sendTo(target, "|noinit|joinfailed|The room '"+target+"' could not be joined.");
 		}
+		
+		// Join messages
+		
+		// JSON code
+		/**
+		fs.readFile('config/joinmessages.json', 'utf8', function (err, data) {
+			if (err) {
+				console.log('Error: ' + err);
+				return;
+			};
+			data = JSON.parse(data);
+			if (!data[target]) {
+				console.log('No message for'+target)
+				return; 
+			}
+			return connection.sendTo(target,data[target]);
+		});
+		**/
+		// Native code
+		console.log(target)
+		joinmsg = require('./config/joinmsg.js');
+		if (!joinmsg.joinmsg[target]) { 
+			console.log('No message for '+target)
+			return connection.sendTo(target,"Welcome to "+target+"!")
+		}
+		console.log(joinmsg.joinmsg[target]);
+		return connection.sendTo(target,joinmsg.joinmsg[target])
 	},
-
+	
 	rb: 'roomban',
 	roomban: function(target, room, user, connection) {
 		if (!target) return this.parse('/help roomban');
