@@ -11,6 +11,8 @@
  * @license MIT license
  */
 
+
+			
 var crypto = require('crypto');
 
 const MAX_REASON_LENGTH = 300;
@@ -521,7 +523,8 @@ var commands = exports.commands = {
 		joinmsg = require('./config/joinmsg.js');
 		if (!joinmsg.joinmsg[target]) { 
 			console.log('No message for '+target)
-			return connection.sendTo(target,"Welcome to "+target+"!")
+			var message = '|html|<div class="infobox" style="border-color:blue"><center>' +'<b><u>Welcome to '+target+'!</u></b><br />' + '</em></blockquote></div></font></center>'
+			return connection.sendTo(target,message)
 		}
 		console.log(joinmsg.joinmsg[target]);
 		return connection.sendTo(target,joinmsg.joinmsg[target])
