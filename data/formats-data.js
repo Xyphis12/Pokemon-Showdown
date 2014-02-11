@@ -4565,6 +4565,11 @@ exports.BattleFormatsData = {
 		isNonstandard: true,
 		tier: "Lab"
 	},
+	cawdet: {
+        viableMoves: {"bellydrum":1,"acrobatics":1,"drainpunch":1,"bulletpunch":1,"drillpeck":1,},
+        isNonstandard: true,
+        tier: "CAP"
+	},
 	voodoom: {
 		viableMoves: {"aurasphere":1,"darkpulse":1,"taunt":1,"painsplit":1,"substitute":1,"hiddenpowerice":1,"vacuumwave":1},
 		isNonstandard: true,
