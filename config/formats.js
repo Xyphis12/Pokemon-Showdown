@@ -164,15 +164,6 @@ exports.Formats = [
 	// XY Doubles
 	///////////////////////////////////////////////////////////////////
 
-	
-	{
-		name: "Random Doubles Battle",
-		section: "XY Doubles",
-
-		gameType: 'doubles',
-		team: 'randomDoubles',
-		ruleset: ['PotD', 'Pokemon', 'Sleep Clause Mod', 'HP Percentage Mod']
-	},
 	{
 		name: "Smogon Doubles",
 		section: "XY Doubles",
@@ -378,7 +369,7 @@ exports.Formats = [
 		banlist: ['Uber', 'Soul Dew', 'Gengarite', 'Kangaskhanite', 'Sonicboom', 'Dragon Rage', 'Scyther', 'Sneasel', 'Yanma', 'Tangela']
 	},
 	{
-		name: "LAB",
+		name: "Lab",
 		section: "Other Metagames",
 
 		ruleset: ['LAB Pokemon', 'Standard', 'Team Preview'],
@@ -735,16 +726,6 @@ exports.Formats = [
 		searchShow: false,
 		debug: true,
 		ruleset: []
-	},
-	{
-		name: "[Gen 3] OU (beta)",
-		section: "Past Generations",
-
-		mod: 'gen3',
-		ruleset: ['Pokemon', 'Standard'],
-		banlist: ['Uber'],
-
-		column: 2
 	},
 	{
 		name: "[Gen 3] Hackmons",
