@@ -628,7 +628,7 @@ var commands = exports.commands = {
 		this.sendReplyBox('+ <b>Voice</b> - They can use ! commands like !groups, and talk during moderated chat<br />' +
 			'% <b>Driver</b> - The above, and they can mute. Global % can also lock users and check for alts<br />' +
 			'@ <b>Moderator</b> - The above, and they can ban users<br />' +
-			'&amp; <b>Leader</b> - The above, and they can promote moderators and force ties<br />' +
+			'&amp; <b>Leader</b> - The above, and they can promote to moderator and force ties<br />' +
 			'~ <b>Administrator</b> - They can do anything, like change what this message says<br />' +
 			'# <b>Room Owner</b> - They are administrators of the room and can almost totally control it');
 	},
@@ -730,6 +730,10 @@ var commands = exports.commands = {
 			matched = true;
 			buffer += '- <a href="http://www.smogon.com/forums/threads/3481155/">OM of the Month</a>';
 		}
+		if (target === 'all' || target === 'index') {
+			matched = true;
+			buffer += '- <a href="http://www.smogon.com/forums/threads/other-metagames-index.3472405/">OM Index</a><br />';
+		}
 		if (!matched) {
 			return this.sendReply('The Other Metas entry "'+target+'" was not found. Try /othermetas or /om for general help.');
 		}
@@ -755,6 +759,7 @@ var commands = exports.commands = {
 			'<br />' +
 			'Room owners (#) can also use:<br />' +
 			'- /roomdesc <em>description</em>: set the room description on the room join page<br />' +
+			'- /rules <em>rules link</em>: set the room rules link seen when using /rules<br />' +
 			'- /roommod, /roomdriver <em>username</em>: appoint a room moderator/driver<br />' +
 			'- /roomdemod, /roomdedriver <em>username</em>: remove a room moderator/driver<br />' +
 			'- /modchat <em>[%/@/#]</em>: set modchat level<br />' +
@@ -775,10 +780,26 @@ var commands = exports.commands = {
 
 	rule: 'rules',
 	rules: function(target, room, user) {
-		if (!this.canBroadcast()) return;
-		this.sendReplyBox('Please follow the rules:<br />' +
-			'- <a href="http://pokemonshowdown.com/rules">Rules</a><br />' +
+		if (!target) {
+			if (!this.canBroadcast()) return;
+			this.sendReplyBox('Please follow the rules:<br />' +
+			(room.rulesLink ? '- <a href="' + sanitize(room.rulesLink) + '">' + sanitize(room.title) + ' room rules</a><br />' : '') +
+			'- <a href="http://pokemonshowdown.com/rules">'+(room.rulesLink?'Global rules':'Rules')+'</a><br />' +
 			'</div>');
+			return;
+		}
+		if (!this.can('roommod', null, room)) return;
+		if (target.length > 80) {
+			return this.sendReply('Error: Room rules link is too long (must be under 80 characters). You can use a URL shortener to shorten the link.');
+		}
+
+		room.rulesLink = target.trim();
+		this.sendReply('(The room rules link is now: '+target+')');
+
+		if (room.chatRoomData) {
+			room.chatRoomData.rulesLink = room.rulesLink;
+			Rooms.global.writeChatRoomData();
+		}
 	},
 
 	faq: function(target, room, user) {
@@ -810,7 +831,7 @@ var commands = exports.commands = {
 			matched = true;
 			buffer += '<a href="http://www.smogon.com/sim/staff_faq">Staff FAQ</a><br />';
 		}
-		if (target === 'all' || target === 'autoconfirmed') {
+		if (target === 'all' || target === 'autoconfirmed' || target === 'ac') {
 			matched = true;
 			buffer += 'A user is autoconfirmed when they have won at least one rated battle and has been registered for a week or longer.<br />';
 		}
@@ -1171,7 +1192,7 @@ var commands = exports.commands = {
 			this.sendReply('/effectiveness OR /matchup OR /eff OR /type [attack], [defender] - Provides the effectiveness of a move or type on another type or a Pokémon.');
 			this.sendReply('!effectiveness OR /matchup OR !eff OR !type [attack], [defender] - Shows everyone the effectiveness of a move or type on another type or a Pokémon.');
 		}
-		if (target === 'all' || target === 'dexsearch') {
+		if (target === 'all' || target === 'dexsearch' || target === 'dsearch') {
 			matched = true;
 			this.sendReply('/dexsearch [type], [move], [move], ... - Searches for Pokemon that fulfill the selected criteria.');
 			this.sendReply('Search categories are: type, tier, color, moves, ability, gen.');
@@ -1200,7 +1221,7 @@ var commands = exports.commands = {
 			matched = true;
 			this.sendReply('/invite [username], [roomname] - Invites the player [username] to join the room [roomname].');
 		}
-		if (target === '%' || target === 'lock') {
+		if (target === '%' || target === 'lock' || target === 'l') {
 			matched = true;
 			this.sendReply('/lock OR /l [username], [reason] - Locks the user from talking in all chats. Requires: % @ & ~');
 		}
@@ -1224,7 +1245,7 @@ var commands = exports.commands = {
 			matched = true;
 			this.sendReply('/forcerename OR /fr [username], [reason] - Forcibly change a user\'s name and shows them the [reason]. Requires: % @ & ~');
 		}
-		if (target === '@' || target === 'roomban') {
+		if (target === '@' || target === 'roomban' || target === 'rb') {
 			matched = true;
 			this.sendReply('/roomban [username] - Bans the user from the room you are in. Requires: @ & ~');
 		}
@@ -1268,7 +1289,7 @@ var commands = exports.commands = {
 			matched = true;
 			this.sendReply('/hourmute OR /hm [username], [reason] - Mutes a user with reason for an hour. Requires: % @ & ~');
 		}
-		if (target === '%' || target === 'unmute') {
+		if (target === '%' || target === 'unmute' || target === 'um') {
 			matched = true;
 			this.sendReply('/unmute [username] - Removes mute from user. Requires: % @ & ~');
 		}
