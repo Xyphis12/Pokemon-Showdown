@@ -790,7 +790,7 @@ exports.Formats = [
 		mod: 'gen2',
 		searchShow: false,
 		debug: true,
-		ruleset: ['Pokemon']
+		ruleset: []
 	},
 	{
 		name: "[Gen 1] OU (beta)",
@@ -807,7 +807,7 @@ exports.Formats = [
 		mod: 'gen1',
 		searchShow: false,
 		debug: true,
-		ruleset: ['Pokemon']
+		ruleset: []
 	}
 
 ];
