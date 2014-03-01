@@ -4697,8 +4697,13 @@ exports.BattleFormatsData = {
 		isNonstandard: true,
 		tier: "CAP"
 	},
+	infelino: {     
+        viableMoves:{"suckerpunch":1,"flareblitz":1,"pursuit":1,"u-turn":1,"defog":1,"icefang":1,"honeclaws":1,"thunderfang":1},      
+        isNonstandard: true,     
+        tier: "Lab"
+	},
 	adametal: {
-        viableMoves:{"harden":1,"scratch":1,"metalclaw":1,"dragonbreath":1,"bite":1,"metalsound":1,"dragonclaw":1,"rockslide":1},
+        viableMoves:{"harden":1,"scratch":1,"metalclaw":1,"dragonbreath":1,"bite":1,"metalsound":1,"geargrind":1,"ironhead":1,"earthquake":1,"dragonclaw":1,"rockslide":1,"irontail":1,"outrage":1,"shadowclaw":1,"stoneedge":1},
         isNonstandard: true,
         tier: "Lab"
 	}
