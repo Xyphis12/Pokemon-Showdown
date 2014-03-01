@@ -4696,5 +4696,10 @@ exports.BattleFormatsData = {
 		viableMoves: {"aurasphere":1,"darkpulse":1,"taunt":1,"painsplit":1,"substitute":1,"hiddenpowerice":1,"vacuumwave":1},
 		isNonstandard: true,
 		tier: "CAP"
+	},
+	adametal: {
+        viableMoves:{"harden":1,"scratch":1,"metalclaw":1,"dragonbreath":1,"bite":1,"metalsound":1,"dragonclaw":1,"rockslide":1},
+        isNonstandard: true,
+        tier: "Lab"
 	}
 };
