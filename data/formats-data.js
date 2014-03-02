@@ -4702,6 +4702,11 @@ exports.BattleFormatsData = {
         isNonstandard: true,     
         tier: "Lab"
 	},
+	octoshock:{
+	viableMoves:{"hurricane":1,"brine":1,"octazooka":1,"zapcannon":1,"hydropump":1,"focusblast":1,"aquajet":1},
+	isNonstandard: true,
+	tier: "Lab"
+	},
 	adametal: {
         viableMoves:{"harden":1,"scratch":1,"metalclaw":1,"dragonbreath":1,"bite":1,"metalsound":1,"geargrind":1,"ironhead":1,"earthquake":1,"dragonclaw":1,"rockslide":1,"irontail":1,"outrage":1,"shadowclaw":1,"stoneedge":1},
         isNonstandard: true,
