@@ -394,8 +394,8 @@ exports.Formats = [
 	},
 		{
 		name: "CAP LC",
+		maxLevel: 5,
 		section: "Other Metagames",
-
 		ruleset: ['CAP Pokemon', 'Standard', 'Team Preview', 'Little Cup'],
 		banlist: ['Uber', 'Soul Dew', 'Gengarite', 'Kangaskhanite', 'Sonicboom', 'Dragon Rage', 'Scyther', 'Sneasel', 'Yanma', 'Tangela']
 	},
