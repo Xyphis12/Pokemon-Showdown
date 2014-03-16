@@ -417,15 +417,13 @@ var commands = exports.commands = {
 						for (var i in searches[search]) {
 							var move = Tools.getMove(i);
 							if (!move.exists) return this.sendReplyBox('"' + move + '" is not a known move.');
-							var canLearn = (template.learnset.sketch && !(move.id in {'chatter':1,'struggle':1,'magikarpsrevenge':1})) || template.learnset[move.id];
-							if ((!canLearn && searches[search][i]) || (searches[search][i] === false && canLearn)) dex[mon] = false;
+							var prevoTemp = Tools.getTemplate(template.id);
+							while (prevoTemp.prevo && prevoTemp.learnset && !(prevoTemp.learnset[move.id])) {
+								prevoTemp = Tools.getTemplate(prevoTemp.prevo);
+							}
+							var canLearn = (prevoTemp.learnset.sketch && !(move.id in {'chatter':1,'struggle':1,'magikarpsrevenge':1})) || prevoTemp.learnset[move.id];
+							if ((!canLearn && searches[search][i]) || (searches[search][i] === false && canLearn)) delete dex[mon];
 						}
-					}
-					for (var mon in dex) {
-						if (dex[mon] && dex[mon].evos.length) {
-							for (var evo in dex[mon].evos) if (dex[dex[mon].evos[evo]] !== false) dex[dex[mon].evos[evo]] = Tools.getTemplate(dex[mon].evos[evo]);
-						}
-						if (!dex[mon]) delete dex[mon];
 					}
 					break;
 
