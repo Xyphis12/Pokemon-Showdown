@@ -4724,5 +4724,10 @@ exports.BattleFormatsData = {
         viableMoves:{"harden":1,"scratch":1,"metalclaw":1,"dragonbreath":1,"bite":1,"metalsound":1,"geargrind":1,"ironhead":1,"earthquake":1,"dragonclaw":1,"rockslide":1,"irontail":1,"outrage":1,"shadowclaw":1,"stoneedge":1},
         isNonstandard: true,
         tier: "Lab"
-	}
+	},
+	bombee: {
+        viableMoves:{"electricterrain":1},
+        isNonstandard: true,
+        tier: "Embuzzle Playtest"
+	},
 };
