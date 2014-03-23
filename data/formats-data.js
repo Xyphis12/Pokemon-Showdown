@@ -4720,6 +4720,11 @@ exports.BattleFormatsData = {
 	isNonstandard: true,
 	tier: "Lab"
 	},
+	thornata: {
+		viableMoves:{"calmmind":1,"growth":1,"hypervoice":1,"synthesis":1,"triattack":1,"earthpower":1,"xscissor":1,"reroot":1},
+		isNonstandard: true,
+		tier: "Lab"
+	},
 	adametal: {
         viableMoves:{"harden":1,"scratch":1,"metalclaw":1,"dragonbreath":1,"bite":1,"metalsound":1,"geargrind":1,"ironhead":1,"earthquake":1,"dragonclaw":1,"rockslide":1,"irontail":1,"outrage":1,"shadowclaw":1,"stoneedge":1},
         isNonstandard: true,

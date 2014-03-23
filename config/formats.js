@@ -332,6 +332,7 @@ exports.Formats = [
 			'Necturine',
 			'Scratchet',
 			'Syclar',
+			'Thornata',
 			'Thornata',]
 	},	
 		//________________________

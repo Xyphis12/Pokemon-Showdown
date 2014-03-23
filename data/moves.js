@@ -15091,5 +15091,23 @@ exports.BattleMovedex = {
 		},
 		target: "normal",
 		type: "Water"
+	},
+	// Added ReRoot for Thornata
+	"reroot": {
+		num: 521,
+		accuracy: 100,
+		basePower: 70,
+		category: "Special",
+		desc: "Deals damage to one adjacent target. If this move is successful and the user has not fainted, the user switches out even if it is trapped and is replaced immediately by another party member. The user does not switch out if there are no unfainted party members, or if the target switched out using an Eject Button.",
+		shortDesc: "User switches out after damaging the target.",
+		id: "reroot",
+		isViable: true,
+		name: "Re-root",
+		pp: 20,
+		priority: 0,
+		selfSwitch: true,
+		secondary: false,
+		target: "normal",
+		type: "Grass"
 	}
 };

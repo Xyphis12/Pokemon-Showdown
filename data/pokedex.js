@@ -839,5 +839,6 @@ infelino:{num:-999,species:"Infelino",types:["Dark","Fire"],genderRatio:{M:0.0,F
 cawdet:{num:-205,species:"Cawdet",types:["Steel","Flying"],genderRatio:{M:0.5,F:0.5},baseStats:{hp:35,atk:72,def:85,spa:40,spd:55,spe:88},abilities:{0:"Keen Eye",1:"Volt Absorb",H:"Big Pecks"},heightm:0.76,weightkg:25.0,color:"",evos:["cawmodore"],eggGroups:["Flying"]},
 bombee:{num:-1010,species:"Bombee",types:["Electric,Fairy"],genderRatio:{M:0.85,F:0.15},baseStats:{hp:75,atk:40,def:65,spa:60,spd:65,spe:70},abilities:{0:"Shield Dust",1:"Aftermath"},heightm:0.4,weightkg:1.2,color:"",evos:["babee"],eggGroups:["Fairy","Field"]
 },
+thornata:{num:-1011,species:"Thornata",types:["Grass"],genderRatio:{M:0.0,F:1.0},baseStats:{hp:80,atk:80,def:75,spa:115,spd:145,spe:90},abilities:{0:"Vegetate",1:"Flower Veil"},heightm:10.0,weightkg:150.0,color:"",evos:[""],eggGroups:["Plant"]},
 syclar:{num:-101,species:"Syclar",types:["Ice","Bug"],genderRatio:{M:0.5,F:0.5},baseStats:{hp:40,atk:76,def:45,spa:74,spd:39,spe:91},abilities:{0:"Compound Eyes",1:"Snow Cloak"},heightm:0.2,weightkg:4.0,color:"",evos:["syclant"],eggGroups:["Bug"]},
 };

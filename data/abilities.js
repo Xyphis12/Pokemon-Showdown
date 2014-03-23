@@ -3288,6 +3288,29 @@ exports.BattleAbilities = {
 		rating: 4,
 		num: -3
 	},
+	// CUSTOM vegetate ABILITY FOR Thornata
+	"vegetate": {
+		desc: "Turns all of this Pokemon's Normal-typed attacks into Grass-typed and deal 1.3x damage. Does not affect Hidden Power.",
+		shortDesc: "This Pokemon's Normal moves become Grass-type and do 1.3x damage.",
+		onModifyMove: function(move, pokemon) {
+			if (move.type === 'Normal' && move.id !== 'hiddenpower') {
+				move.type = 'Grass';
+				pokemon.addVolatile('vegetate');
+			}
+		},
+		effect: {
+			duration: 1,
+			onBasePowerPriority: 8,
+			onBasePower: function(basePower, pokemon, target, move) {
+				return this.chainModify([0x14CD, 0x1000]);
+			}
+		},
+		id: "vegetate",
+		name: "Vegetate",
+		rating: 3,
+		num: -6,
+		gen: 6
+	},
 	"persistent": {
 		desc: "Increases the duration of many field effects by two turns when used by this Pokémon.",
 		shortDesc: "The duration of certain field effects is increased by 2 turns if used by this Pokemon.",
