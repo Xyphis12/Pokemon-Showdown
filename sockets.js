@@ -12,7 +12,7 @@
  */
 
 var cluster = require('cluster');
-var config = require('./config/config');
+var Config = require('./config/config');
 
 if (cluster.isMaster) {
 
@@ -23,7 +23,7 @@ if (cluster.isMaster) {
 	var workers = exports.workers = {};
 
 	var spawnWorker = exports.spawnWorker = function() {
-		var worker = cluster.fork({PSPORT: config.port});
+		var worker = cluster.fork({PSPORT: Config.port});
 		var id = worker.id;
 		workers[id] = worker;
 		worker.on('message', function(data) {
@@ -49,7 +49,7 @@ if (cluster.isMaster) {
 		});
 	};
 
-	var workerCount = config.workers || 1;
+	var workerCount = Config.workers || 1;
 	for (var i=0; i<workerCount; i++) {
 		spawnWorker();
 	}
@@ -107,7 +107,7 @@ if (cluster.isMaster) {
 } else {
 	// is worker
 
-	if (process.env.PSPORT) config.port = +process.env.PSPORT;
+	if (process.env.PSPORT) Config.port = +process.env.PSPORT;
 
 	// ofe is optional
 	// if installed, it will heap dump if the process runs out of memory
@@ -124,7 +124,7 @@ if (cluster.isMaster) {
 
 	var Cidr = require('./cidr');
 
-	if (config.crashguard) {
+	if (Config.crashguard) {
 		// graceful crash
 		process.on('uncaughtException', function(err) {
 			require('./crashlogger.js')(err, 'Socket process '+cluster.worker.id+' ('+process.pid+')');
@@ -133,8 +133,8 @@ if (cluster.isMaster) {
 
 	var app = require('http').createServer();
 	var appssl;
-	if (config.ssl) {
-		appssl = require('https').createServer(config.ssl.options);
+	if (Config.ssl) {
+		appssl = require('https').createServer(Config.ssl.options);
 	}
 	try {
 		(function() {
@@ -145,8 +145,8 @@ if (cluster.isMaster) {
 			var staticRequestHandler = function(request, response) {
 				request.resume();
 				request.addListener('end', function() {
-					if (config.customhttpresponse &&
-							config.customhttpresponse(request, response)) {
+					if (Config.customhttpresponse &&
+							Config.customhttpresponse(request, response)) {
 						return;
 					}
 					var server;
@@ -190,19 +190,14 @@ if (cluster.isMaster) {
 			if (severity === 'error') console.log('ERROR: '+message);
 		},
 		prefix: '/showdown',
-		websocket: !config.disablewebsocket
+		websocket: !Config.disablewebsocket
 	});
-
-	// Make `app`, `appssl`, and `server` available to the console.
-	global.App = app;
-	global.AppSSL = appssl;
-	global.Server = server;
 
 	var sockets = {};
 	var channels = {};
 
 	// Deal with phantom connections.
-	global.sweepClosedSockets = function() {
+	var sweepClosedSockets = function() {
 		for (var s in sockets) {
 			if (sockets[s].protocol === 'xhr-streaming' &&
 				sockets[s]._session &&
@@ -223,11 +218,9 @@ if (cluster.isMaster) {
 			}
 		}
 	};
-	if (!config.herokuhack) {
-		global.sweepClosedSocketsInterval = setInterval(
-			sweepClosedSockets,
-			1000 * 60 * 10
-		);
+	var interval;
+	if (!Config.herokuhack) {
+		interval = setInterval(sweepClosedSockets, 1000*60*10);
 	}
 
 	process.on('message', function(data) {
@@ -298,7 +291,7 @@ if (cluster.isMaster) {
 	});
 
 	// this is global so it can be hotpatched if necessary
-	var isTrustedProxyIp = Cidr.checker(config.proxyip);
+	var isTrustedProxyIp = Cidr.checker(Config.proxyip);
 	var socketCounter = 0;
 	server.on('connection', function(socket) {
 		if (!socket) {
@@ -332,7 +325,7 @@ if (cluster.isMaster) {
 
 		// console.log('CONNECT: '+socket.remoteAddress+' ['+socket.id+']');
 		var interval;
-		if (config.herokuhack) {
+		if (Config.herokuhack) {
 			// see https://github.com/sockjs/sockjs-node/issues/57#issuecomment-5242187
 			interval = setInterval(function() {
 				try {
@@ -359,21 +352,21 @@ if (cluster.isMaster) {
 			process.send('!'+socketid);
 
 			delete sockets[socketid];
-			for (channelid in channels) {
+			for (var channelid in channels) {
 				delete channels[channelid][socketid];
 			}
 		});
 	});
 	server.installHandlers(app, {});
-	app.listen(config.port);
-	console.log('Worker '+cluster.worker.id+' now listening on port ' + config.port);
+	app.listen(Config.port);
+	console.log('Worker '+cluster.worker.id+' now listening on port ' + Config.port);
 
 	if (appssl) {
 		server.installHandlers(appssl, {});
-		appssl.listen(config.ssl.port);
-		console.log('Worker '+cluster.worker.id+' now listening for SSL on port ' + config.ssl.port);
+		appssl.listen(Config.ssl.port);
+		console.log('Worker '+cluster.worker.id+' now listening for SSL on port ' + Config.ssl.port);
 	}
 
-	console.log('Test your server at http://localhost:' + config.port);
+	console.log('Test your server at http://localhost:' + Config.port);
 
 }

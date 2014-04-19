@@ -1,9 +1,3 @@
-function clampIntRange(num, min, max) {
-	num = Math.floor(num);
-	if (num < min) num = min;
-	if (typeof max !== 'undefined' && num > max) num = max;
-	return num;
-}
 exports.BattleMovedex = {
 	acupressure: {
 		inherit: true,
@@ -62,19 +56,17 @@ exports.BattleMovedex = {
 	beatup: {
 		inherit: true,
 		basePower: 10,
-		basePowerCallback: null,
-		desc: "Does one hit for the user and each other unfainted non-egg active and non-active Pokemon on the user's side without a status problem.",
-		onBasePower: function(basePower, pokemon, target) {
+		basePowerCallback: function(pokemon, target) {
 			pokemon.addVolatile('beatup');
+			if (!pokemon.side.pokemon[pokemon.volatiles.beatup.index]) return null;
+			return 10;
 		},
+		desc: "Does one hit for the user and each other unfainted non-egg active and non-active Pokemon on the user's side without a status problem.",
 		effect: {
 			duration: 1,
 			onStart: function(pokemon) {
 				this.effectData.index = 0;
-				while (pokemon.side.pokemon[this.effectData.index] !== pokemon &&
-					(!pokemon.side.pokemon[this.effectData.index] ||
-					pokemon.side.pokemon[this.effectData.index].fainted ||
-					pokemon.side.pokemon[this.effectData.index].status)) {
+				while (!pokemon.side.pokemon[this.effectData.index] || pokemon.side.pokemon[this.effectData.index].fainted || pokemon.side.pokemon[this.effectData.index].status) {
 					this.effectData.index++;
 				}
 			},
@@ -83,8 +75,8 @@ exports.BattleMovedex = {
 					this.effectData.index++;
 					if (this.effectData.index >= 6) break;
 				} while (!pokemon.side.pokemon[this.effectData.index] ||
-						pokemon.side.pokemon[this.effectData.index].fainted ||
-						pokemon.side.pokemon[this.effectData.index].status);
+					pokemon.side.pokemon[this.effectData.index].fainted ||
+					pokemon.side.pokemon[this.effectData.index].status);
 			},
 			onModifyAtkPriority: 5,
 			onModifyAtk: function(atk, pokemon) {
@@ -572,7 +564,7 @@ exports.BattleMovedex = {
 		pp: 20,
 		onMoveFail: function(target, source, move) {
 			var damage = this.getDamage(source, target, move, true);
-			this.damage(clampIntRange(damage/2, 1, Math.floor(target.maxhp/2)), source);
+			this.damage(this.clampIntRange(damage/2, 1, Math.floor(target.maxhp/2)), source);
 		}
 	},
 	iciclespear: {
@@ -601,7 +593,7 @@ exports.BattleMovedex = {
 		pp: 25,
 		onMoveFail: function(target, source, move) {
 			var damage = this.getDamage(source, target, move, true);
-			this.damage(clampIntRange(damage/2, 1, Math.floor(target.maxhp/2)), source);
+			this.damage(this.clampIntRange(damage/2, 1, Math.floor(target.maxhp/2)), source);
 		}
 	},
 	lastresort: {

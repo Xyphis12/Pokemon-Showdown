@@ -76,10 +76,7 @@ if (!Object.select) {
 // Make sure config.js exists, and copy it over from config-example.js
 // if it doesn't
 
-global.fs = require('fs');
-if (!('existsSync' in fs)) {
-	fs.existsSync = require('path').existsSync;
-}
+var fs = require('fs');
 
 // Synchronously, since it's needed before we can start the server
 if (!fs.existsSync('./config/config.js')) {
@@ -93,7 +90,7 @@ if (!fs.existsSync('./config/config.js')) {
  * Load configuration
  *********************************************************/
 
-global.config = require('./config/config.js');
+global.Config = require('./config/config.js');
 
 var watchFile = function() {
 	try {
@@ -103,19 +100,19 @@ var watchFile = function() {
 	}
 };
 
-if (config.watchconfig) {
+if (Config.watchconfig) {
 	watchFile('./config/config.js', function(curr, prev) {
 		if (curr.mtime <= prev.mtime) return;
 		try {
 			delete require.cache[require.resolve('./config/config.js')];
-			config = require('./config/config.js');
+			Config = require('./config/config.js');
 			console.log('Reloaded config/config.js');
 		} catch (e) {}
 	});
 }
 
 if (process.argv[2] && parseInt(process.argv[2])) {
-	config.port = parseInt(process.argv[2]);
+	Config.port = parseInt(process.argv[2]);
 }
 
 global.ResourceMonitor = {
@@ -288,7 +285,6 @@ global.toId = function(text) {
 
 	return string(text).toLowerCase().replace(/[^a-z0-9]+/g, '');
 };
-global.toUserid = toId;
 
 /**
  * Sanitizes a username or Pokemon nickname
@@ -338,18 +334,6 @@ global.string = function(str) {
 	return '';
 };
 
-/**
- * Converts any variable to an integer (numbers get floored, non-numbers
- * become 0). Then clamps it between min and (optionally) max.
- */
-global.clampIntRange = function(num, min, max) {
-	if (typeof num !== 'number') num = 0;
-	num = Math.floor(num);
-	if (num < min) num = min;
-	if (max !== undefined && num > max) num = max;
-	return num;
-};
-
 global.LoginServer = require('./loginserver.js');
 
 watchFile('./config/custom.css', function(curr, prev) {
@@ -378,7 +362,7 @@ try {
 
 global.Cidr = require('./cidr.js');
 
-if (config.crashguard) {
+if (Config.crashguard) {
 	// graceful crash - allow current battles to finish before restarting
 	var lastCrash = 0;
 	process.on('uncaughtException', function(err) {
@@ -392,7 +376,7 @@ if (config.crashguard) {
 			Rooms.lobby.addRaw('<div class="broadcast-red"><b>THE SERVER HAS CRASHED:</b> '+stack+'<br />Please restart the server.</div>');
 			Rooms.lobby.addRaw('<div class="broadcast-red">You will not be able to talk in the lobby or start new battles until the server restarts.</div>');
 		}
-		config.modchat = 'crash';
+		Config.modchat = 'crash';
 		Rooms.global.lockdown = true;
 	});
 }

@@ -28,9 +28,9 @@ var SimulatorProcess = (function() {
 	SimulatorProcess.prototype.load = 0;
 	SimulatorProcess.prototype.active = true;
 	SimulatorProcess.processes = [];
-	SimulatorProcess.spawn = function() {
-		var num = config.simulatorprocesses || 1;
-		for (var i = 0; i < num; ++i) {
+	SimulatorProcess.spawn = function(num) {
+		if (!num) num = Config.simulatorprocesses || 1;
+		for (var i = this.processes.length; i < num; ++i) {
 			this.processes.push(new SimulatorProcess());
 		}
 	};
@@ -118,7 +118,7 @@ var Simulator = (function(){
 		this.process.send(''+this.id+'|'+slice.call(arguments).join('|'));
 	};
 	Simulator.prototype.sendFor = function(user, action) {
-		var player = this.playerTable[toUserid(user)];
+		var player = this.playerTable[toId(user)];
 		if (!player) {
 			console.log('SENDFOR FAILED: Player doesn\'t exist: '+user.name);
 			return;
@@ -128,7 +128,7 @@ var Simulator = (function(){
 	};
 	Simulator.prototype.sendForOther = function(user, action) {
 		var opposite = {'p1':'p2', 'p2':'p1'};
-		var player = this.playerTable[toUserid(user)];
+		var player = this.playerTable[toId(user)];
 		if (!player) return;
 
 		this.send.apply(this, [action, opposite[player]].concat(slice.call(arguments, 2)));

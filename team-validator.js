@@ -34,7 +34,7 @@ if (!process.send) {
 		ValidatorProcess.prototype.active = true;
 		ValidatorProcess.processes = [];
 		ValidatorProcess.spawn = function() {
-			var num = config.validatorprocesses || 1;
+			var num = Config.validatorprocesses || 1;
 			for (var i = 0; i < num; ++i) {
 				this.processes.push(new ValidatorProcess());
 			}
@@ -98,10 +98,9 @@ if (!process.send) {
 	};
 } else {
 	require('sugar');
-	global.fs = require('fs');
-	global.config = require('./config/config.js');
+	global.Config = require('./config/config.js');
 
-	if (config.crashguard) {
+	if (Config.crashguard) {
 		process.on('uncaughtException', function (err) {
 			require('./crashlogger.js')(err, 'A team validator process');
 		});
@@ -121,7 +120,6 @@ if (!process.send) {
 
 		return string(text).toLowerCase().replace(/[^a-z0-9]+/g, '');
 	};
-	global.toUserid = toId;
 
 	/**
 	 * Validates a username or Pokemon nickname
@@ -134,8 +132,8 @@ if (!process.send) {
 			name = name.substr(1);
 		}
 		if (name.length > 18) name = name.substr(0,18);
-		if (config.namefilter) {
-			name = config.namefilter(name);
+		if (Config.namefilter) {
+			name = Config.namefilter(name);
 		}
 		return name.trim();
 	};
@@ -487,7 +485,7 @@ var Validator = (function() {
 					}
 				}
 			}
-			if (set.level < template.evoLevel) {
+			if (banlistTable['illegal'] && set.level < template.evoLevel) {
 				// FIXME: Event pokemon given at a level under what it normally can be attained at gives a false positive
 				problems.push(name+" must be at least level "+template.evoLevel+".");
 			}

@@ -12,14 +12,9 @@
 
 require('sugar');
 
-global.fs = require('fs');
-if (!('existsSync' in fs)) {
-	// for compatibility with ancient versions of node
-	fs.existsSync = require('path').existsSync;
-}
-global.config = require('./config/config.js');
+global.Config = require('./config/config.js');
 
-if (config.crashguard) {
+if (Config.crashguard) {
 	// graceful crash - allow current battles to finish before restarting
 	process.on('uncaughtException', function (err) {
 		require('./crashlogger.js')(err, 'A simulator process');
@@ -28,7 +23,7 @@ if (config.crashguard) {
 			Rooms.lobby.addRaw('<div><b>THE SERVER HAS CRASHED:</b> '+stack+'<br />Please restart the server.</div>');
 			Rooms.lobby.addRaw('<div>You will not be able to talk in the lobby or start new battles until the server restarts.</div>');
 		}
-		config.modchat = 'crash';
+		Config.modchat = 'crash';
 		Rooms.global.lockdown = true; */
 	});
 }
@@ -47,7 +42,6 @@ global.toId = function(text) {
 
 	return string(text).toLowerCase().replace(/[^a-z0-9]+/g, '');
 };
-global.toUserid = toId;
 
 /**
  * Validates a username or Pokemon nickname
@@ -79,18 +73,6 @@ global.sanitize = function(str, strEscape) {
 global.string = function(str) {
 	if (typeof str === 'string' || typeof str === 'number') return ''+str;
 	return '';
-};
-
-/**
- * Converts any variable to an integer (numbers get floored, non-numbers
- * become 0). Then clamps it between min and (optionally) max.
- */
-clampIntRange = function(num, min, max) {
-	if (typeof num !== 'number') num = 0;
-	num = Math.floor(num);
-	if (num < min) num = min;
-	if (max !== undefined && num > max) num = max;
-	return num;
 };
 
 global.Tools = require('./tools.js');
@@ -195,12 +177,12 @@ var BattlePokemon = (function() {
 		this.moveset = [];
 		this.baseMoveset = [];
 
-		this.level = clampIntRange(set.forcedLevel || set.level || 100, 1, 1000);
+		this.level = this.battle.clampIntRange(set.forcedLevel || set.level || 100, 1, 1000);
 
 		var genders = {M:'M',F:'F'};
 		this.gender = this.template.gender || genders[set.gender] || (Math.random()*2<1?'M':'F');
 		if (this.gender === 'N') this.gender = '';
-		this.happiness = typeof set.happiness === 'number' ? clampIntRange(set.happiness, 0, 255) : 255;
+		this.happiness = typeof set.happiness === 'number' ? this.battle.clampIntRange(set.happiness, 0, 255) : 255;
 		this.pokeball = this.set.pokeball || 'pokeball';
 
 		this.fullname = this.side.id + ': ' + this.name;
@@ -277,10 +259,10 @@ var BattlePokemon = (function() {
 			if (!this.set.ivs[i] && this.set.ivs[i] !== 0) this.set.ivs[i] = 31;
 		}
 		for (var i in this.set.evs) {
-			this.set.evs[i] = clampIntRange(this.set.evs[i], 0, 255);
+			this.set.evs[i] = this.battle.clampIntRange(this.set.evs[i], 0, 255);
 		}
 		for (var i in this.set.ivs) {
-			this.set.ivs[i] = clampIntRange(this.set.ivs[i], 0, 31);
+			this.set.ivs[i] = this.battle.clampIntRange(this.set.ivs[i], 0, 31);
 		}
 
 		var hpTypes = ['Fighting','Flying','Poison','Ground','Rock','Bug','Ghost','Steel','Fire','Water','Grass','Electric','Psychic','Ice','Dragon','Dark'];
@@ -580,7 +562,7 @@ var BattlePokemon = (function() {
 	BattlePokemon.prototype.getRequestData = function() {
 		var lockedMove = this.getLockedMove();
 		var data = {moves: this.getMoves(lockedMove)};
-		if (lockedMove && this.trapped) {
+		if (this.trapped) {
 			data.trapped = true;
 		} else if (this.maybeTrapped) {
 			data.maybeTrapped = true;
@@ -823,8 +805,8 @@ var BattlePokemon = (function() {
 		}
 		return false;
 	};
-	BattlePokemon.prototype.getValidMoves = function() {
-		var pMoves = this.getMoves(this.getLockedMove());
+	BattlePokemon.prototype.getValidMoves = function(lockedMove) {
+		var pMoves = this.getMoves(lockedMove);
 		var moves = [];
 		for (var i=0; i<pMoves.length; i++) {
 			if (!pMoves[i].disabled) {
@@ -1015,6 +997,14 @@ var BattlePokemon = (function() {
 	BattlePokemon.prototype.getItem = function() {
 		return this.battle.getItem(this.item);
 	};
+	BattlePokemon.prototype.hasItem = function(item) {
+		if (this.ignore['Item']) return false;
+		var ownItem = this.item;
+		if (!Array.isArray(item)) {
+			return ownItem === toId(item);
+		}
+		return (item.map(toId).indexOf(ownItem) >= 0);
+	};
 	BattlePokemon.prototype.clearItem = function() {
 		return this.setItem('');
 	};
@@ -1035,6 +1025,14 @@ var BattlePokemon = (function() {
 	};
 	BattlePokemon.prototype.getAbility = function() {
 		return this.battle.getAbility(this.ability);
+	};
+	BattlePokemon.prototype.hasAbility = function(ability) {
+		if (this.ignore['Ability']) return false;
+		var ownAbility = this.ability;
+		if (!Array.isArray(ability)) {
+			return ownAbility === toId(ability);
+		}
+		return (ability.map(toId).indexOf(ownAbility) >= 0);
 	};
 	BattlePokemon.prototype.clearAbility = function() {
 		return this.setAbility('');
@@ -2605,7 +2603,7 @@ var Battle = (function() {
 		if (!target || !target.hp) return 0;
 		effect = this.getEffect(effect);
 		if (!(damage || damage === 0)) return damage;
-		if (damage !== 0) damage = clampIntRange(damage, 1);
+		if (damage !== 0) damage = this.clampIntRange(damage, 1);
 
 		if (effect.id !== 'struggle-recoil') { // Struggle recoil is not affected by effects
 			if (effect.effectType === 'Weather' && !target.runImmunity(effect.id)) {
@@ -2623,7 +2621,7 @@ var Battle = (function() {
 				this.add('replace', target, target.getDetails);
 			}
 		}
-		if (damage !== 0) damage = clampIntRange(damage, 1);
+		if (damage !== 0) damage = this.clampIntRange(damage, 1);
 		damage = target.damage(damage, source, effect);
 		if (source) source.lastDamage = damage;
 		var name = effect.fullname;
@@ -2644,7 +2642,7 @@ var Battle = (function() {
 		}
 
 		if (effect.recoil && source) {
-			this.damage(clampIntRange(Math.round(damage * effect.recoil[0] / effect.recoil[1]), 1), source, target, 'recoil');
+			this.damage(this.clampIntRange(Math.round(damage * effect.recoil[0] / effect.recoil[1]), 1), source, target, 'recoil');
 		}
 		if (effect.drain && source) {
 			this.heal(Math.ceil(damage * effect.drain[0] / effect.drain[1]), source, target, 'drain');
@@ -2667,7 +2665,7 @@ var Battle = (function() {
 		}
 		if (!target || !target.hp) return 0;
 		if (!damage) return 0;
-		damage = clampIntRange(damage, 1);
+		damage = this.clampIntRange(damage, 1);
 
 		damage = target.damage(damage, source, effect);
 		switch (effect.id) {
@@ -2818,13 +2816,13 @@ var Battle = (function() {
 			if (basePower === 0) return; // returning undefined means not dealing damage
 			return basePower;
 		}
-		basePower = clampIntRange(basePower, 1);
+		basePower = this.clampIntRange(basePower, 1);
 
 		if (this.gen <= 5) {
-			move.critRatio = clampIntRange(move.critRatio, 0, 5);
+			move.critRatio = this.clampIntRange(move.critRatio, 0, 5);
 			var critMult = [0, 16, 8, 4, 3, 2];
 		} else {
-			move.critRatio = clampIntRange(move.critRatio, 0, 4);
+			move.critRatio = this.clampIntRange(move.critRatio, 0, 4);
 			var critMult = [0, 16, 8, 2, 1];
 		}
 
@@ -2842,7 +2840,7 @@ var Battle = (function() {
 		basePower = this.runEvent('BasePower', pokemon, target, move, basePower, true);
 
 		if (!basePower) return 0;
-		basePower = clampIntRange(basePower, 1);
+		basePower = this.clampIntRange(basePower, 1);
 
 		var level = pokemon.level;
 
@@ -2930,7 +2928,7 @@ var Battle = (function() {
 			totalTypeMod = this.getEffectiveness(move, target, pokemon);
 		}
 
-		totalTypeMod = clampIntRange(totalTypeMod, -3, 3);
+		totalTypeMod = this.clampIntRange(totalTypeMod, -3, 3);
 		if (totalTypeMod > 0) {
 			if (!suppressMessages) this.add('-supereffective', target);
 
@@ -2982,14 +2980,15 @@ var Battle = (function() {
 		}
 		return false;
 	};
-	Battle.prototype.validTarget = function(target, source, targetType) {
-		var targetLoc;
+	Battle.prototype.getTargetLoc = function(target, source) {
 		if (target.side == source.side) {
-			targetLoc = -(target.position+1);
+			return -(target.position+1);
 		} else {
-			targetLoc = target.position+1;
+			return target.position+1;
 		}
-		return this.validTargetLoc(targetLoc, source, targetType);
+	};
+	Battle.prototype.validTarget = function(target, source, targetType) {
+		return this.validTargetLoc(this.getTargetLoc(target, source), source, targetType);
 	};
 	Battle.prototype.getTarget = function(decision) {
 		var move = this.getMove(decision.move);
@@ -3627,7 +3626,8 @@ var Battle = (function() {
 			case 'move':
 				var targetLoc = 0;
 				var pokemon = side.pokemon[i];
-				var validMoves = pokemon.getValidMoves();
+				var lockedMove = pokemon.getLockedMove();
+				var validMoves = pokemon.getValidMoves(lockedMove);
 				var moveid = '';
 
 				if (data.substr(data.length-2) === ' 1') targetLoc = 1;
@@ -3639,11 +3639,15 @@ var Battle = (function() {
 
 				if (targetLoc) data = data.substr(0, data.lastIndexOf(' '));
 
+				if (lockedMove) targetLoc = (this.runEvent('LockMoveTarget', pokemon) || 0);
+
 				if (data.substr(data.length-5) === ' mega') {
-					decisions.push({
-						choice: 'megaEvo',
-						pokemon: pokemon
-					});
+					if (!lockedMove) {
+						decisions.push({
+							choice: 'megaEvo',
+							pokemon: pokemon
+						});
+					}
 					data = data.substr(0, data.length-5);
 				}
 

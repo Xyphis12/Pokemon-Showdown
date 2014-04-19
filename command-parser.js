@@ -31,6 +31,7 @@ const MESSAGE_COOLDOWN = 5*60*1000;
 const MAX_PARSE_RECURSION = 10;
 
 var crypto = require('crypto');
+var fs = require('fs');
 
 var modlog = exports.modlog = {lobby: fs.createWriteStream('logs/modlog/modlog_lobby.txt', {flags:'a+'}), battle: fs.createWriteStream('logs/modlog/modlog_battle.txt', {flags:'a+'})};
 
@@ -62,9 +63,9 @@ var parse = exports.parse = function(message, room, user, connection, levelsDeep
 	if (!message || !message.trim().length) return;
 	if (!levelsDeep) {
 		levelsDeep = 0;
-		// if (config.emergencylog && (connection.ip === '62.195.195.62' || connection.ip === '86.141.154.222' || connection.ip === '189.134.175.221' || message.length > 2048 || message.length > 256 && message.substr(0,5) !== '/utm ' && message.substr(0,5) !== '/trn ')) {
-		if (config.emergencylog && (user.userid === 'pindapinda' || connection.ip === '62.195.195.62' || connection.ip === '86.141.154.222' || connection.ip === '189.134.175.221')) {
-			config.emergencylog.write('<'+user.name+'@'+connection.ip+'> '+message+'\n');
+		// if (Config.emergencylog && (connection.ip === '62.195.195.62' || connection.ip === '86.141.154.222' || connection.ip === '189.134.175.221' || message.length > 2048 || message.length > 256 && message.substr(0,5) !== '/utm ' && message.substr(0,5) !== '/trn ')) {
+		if (Config.emergencylog && (user.userid === 'pindapinda' || connection.ip === '62.195.195.62' || connection.ip === '86.141.154.222' || connection.ip === '189.134.175.221')) {
+			Config.emergencylog.write('<'+user.name+'@'+connection.ip+'> '+message+'\n');
 		}
 	}
 
@@ -196,9 +197,12 @@ var parse = exports.parse = function(message, room, user, connection, levelsDeep
 				var innerRoom = (relevantRoom !== undefined) ? relevantRoom : room;
 				return canTalk(user, innerRoom, connection, message);
 			},
-			targetUserOrSelf: function(target) {
-				if (!target) return user;
-				this.splitTarget(target);
+			targetUserOrSelf: function(target, exactName) {
+				if (!target) {
+					this.targetUsername = user.name;
+					return user;
+				}
+				this.splitTarget(target, exactName);
 				return this.targetUser;
 			},
 			splitTarget: splitTarget
@@ -210,16 +214,16 @@ var parse = exports.parse = function(message, room, user, connection, levelsDeep
 		return result;
 	} else {
 		// Check for mod/demod/admin/deadmin/etc depending on the group ids
-		for (var g in config.groups) {
-			var groupid = config.groups[g].id;
+		for (var g in Config.groups) {
+			var groupid = Config.groups[g].id;
 			if (cmd === groupid) {
-				return parse('/promote ' + toUserid(target) + ',' + g, room, user, connection);
+				return parse('/promote ' + toId(target) + ',' + g, room, user, connection);
 			} else if (cmd === 'de' + groupid || cmd === 'un' + groupid) {
-				return parse('/demote ' + toUserid(target), room, user, connection);
+				return parse('/demote ' + toId(target), room, user, connection);
 			} else if (cmd === 'room' + groupid) {
-				return parse('/roompromote ' + toUserid(target) + ',' + g, room, user, connection);
+				return parse('/roompromote ' + toId(target) + ',' + g, room, user, connection);
 			} else if (cmd === 'roomde' + groupid || cmd === 'deroom' + groupid || cmd === 'roomun' + groupid) {
-				return parse('/roomdemote ' + toUserid(target), room, user, connection);
+				return parse('/roomdemote ' + toId(target), room, user, connection);
 			}
 		}
 
@@ -287,8 +291,8 @@ function canTalk(user, room, connection, message) {
 			if (!user.autoconfirmed && (room.auth && room.auth[user.userid] || user.group) === ' ' && room.modchat === 'autoconfirmed') {
 				connection.sendTo(room, 'Because moderated chat is set, your account must be at least one week old and you must have won at least one ladder game to speak in this room.');
 				return false;
-			} else if (config.groupsranking.indexOf(userGroup) < config.groupsranking.indexOf(room.modchat)) {
-				var groupName = config.groups[room.modchat].name;
+			} else if (Config.groupsranking.indexOf(userGroup) < Config.groupsranking.indexOf(room.modchat)) {
+				var groupName = Config.groups[room.modchat].name;
 				if (!groupName) groupName = room.modchat;
 				connection.sendTo(room, 'Because moderated chat is set, you must be of rank ' + groupName +' or higher to speak in this room.');
 				return false;
@@ -334,8 +338,8 @@ function canTalk(user, room, connection, message) {
 			}
 		}
 
-		if (config.chatfilter) {
-			return config.chatfilter(user, room, connection, message);
+		if (Config.chatfilter) {
+			return Config.chatfilter(user, room, connection, message);
 		}
 		return message;
 	}
