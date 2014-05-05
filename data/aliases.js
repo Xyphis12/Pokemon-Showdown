@@ -10,7 +10,7 @@ exports.BattleAliases = {
 	"monotype": "OU Monotype",
 	"createapokemon": "CAP",
 	"cc1v1": "Challenge Cup 1vs1",
-	
+
 	// mega evos
 	"megaabomasnow": "Abomasnow-Mega",
 	"megaabsol": "Absol-Mega",
@@ -44,6 +44,7 @@ exports.BattleAliases = {
 	"megapinsir": "Pinsir-Mega",
 	"megascizor": "Scizor-Mega",
 	"megatyranitar": "Tyranitar-Mega",
+	"megattar": "Tyranitar-Mega",
 	"megavenusaur": "Venusaur-Mega",
 
 	// formes
@@ -61,6 +62,7 @@ exports.BattleAliases = {
 	"darmanitanz": "Darmanitan-Zen",
 	"darmanitanzenmode": "Darmanitan-Zen",
 	"deoxysnormal": "Deoxys",
+	"deon": "Deoxys",
 	"deoxysa": "Deoxys-Attack",
 	"deoa": "Deoxys-Attack",
 	"deoxysd": "Deoxys-Defense",
@@ -137,7 +139,9 @@ exports.BattleAliases = {
 	"scarf": "Choice Scarf",
 	"specs": "Choice Specs",
 	"yache": "Yache Berry",
-	
+	"av": "Assault Vest",
+	"assvest": "Assault Vest",
+
 	// gen 1-2 berries
 	"berry": "Oran Berry",
 	"bitterberry": "Persim Berry",
@@ -145,6 +149,7 @@ exports.BattleAliases = {
 	"goldberry": "Sitrus Berry",
 	"iceberry": "Aspear Berry",
 	"mintberry": "Chesto Berry",
+	"miracleberry": "Lum Berry",
 	"mysteryberry": "Leppa Berry",
 	"przcureberry": "Cheri Berry",
 	"psncureberry": "Pecha Berry",
