@@ -3287,7 +3287,32 @@ exports.BattleAbilities = {
 		rating: 3,
 		num: -6,
 		gen: 6
+	
+	// ELementalist for Uranium pokes
 	},
+	        "elementalist": {
+                desc: "This Pokemon's Fire-type, Electric-type and Water-type attacks receive a 50% boost in power. (STAB)",
+                shortDesc: "Gives STAB to Fire, Electric and Water types.",
+                onModifyAtkPriority: 5,
+                onModifyAtk: function (atk, attacker, defender, move) {
+                        if (move.type === 'Fire' || move.type === 'Water' ||  move.type === 'Electric') { // If move type is fire or water or electric
+                                this.debug('Elementalist');
+                                return this.chainModify(1.5);
+                        }
+                },
+                onModifySpAPriority: 5,
+                onModifySpA: function (atk, attacker, defender, move) {
+                        if (move.type === 'Fire' || move.type === 'Water' ||  move.type === 'Electric') { // If move type is fire or water or electric
+                                this.debug('Elementalist');
+                                return this.chainModify(1.5);
+                        }
+                },
+                id: "elementalist",
+                name: "Elementalist",
+                rating: 2,
+                num: -10
+        },
+		
 	"persistent": {
 		desc: "Increases the duration of many field effects by two turns when used by this Pokémon.",
 		shortDesc: "The duration of certain field effects is increased by 2 turns if used by this Pokemon.",
