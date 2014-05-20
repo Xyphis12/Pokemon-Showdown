@@ -499,7 +499,35 @@ exports.BattleStatuses = {
 			this.add('-weather', 'none');
 		}
 	},
-
+	fallout: {
+			effectType: 'Weather',
+			duration: 5,
+			onBasePower: function(basePower, attacker, defender, move) {
+				if (move.type === 'Fire','Water','Grass','Normal','Flying','Bug','Poison','Electric','Ground','Rock','Ice','Dragon','Ghost','Fighting','Dark','Steel','Fairy') {
+					this.debug('Fallout Move Debuff');
+					return this.chainModify(0.75);
+				}
+			},
+			onStart: function(battle, source, effect) {
+				if (effect && effect.effectType === 'Ability' && this.gen <= 5) {
+					this.effectData.duration = 0;
+					this.add('-weather', 'Fallout', '[from] ability: '+effect, '[of] '+source);
+				} else {
+					this.add('-weather', 'Fallout');
+				}
+			},
+			onResidualOrder: 1,
+			onResidual: function() {
+				this.add('-weather', 'Fallout', '[upkeep]');
+				if (this.isWeather('hail')) this.eachEvent('Weather');
+			},
+			onWeather: function(target) {
+				this.damage(target.maxhp/16);
+			},
+			onEnd: function() {
+				this.add('-weather', 'none');
+			}
+	},
 	arceus: {
 		// Arceus's actual typing is implemented here
 		// Arceus's true typing for all its formes is Normal, and it's only

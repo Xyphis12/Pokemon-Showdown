@@ -3312,7 +3312,126 @@ exports.BattleAbilities = {
                 rating: 2,
                 num: -10
         },
-		
+	"sharpcoral": {
+			desc: "This Pokemon's Attack and Special Attack stats are doubled, but Defense and Special Defense halved. Therefore, if this Pokemon's Attack stat on the status screen is 200, it effectively has an Attack stat of 400; which is then subject to the full range of stat boosts and reductions.",
+			shortDesc: "This Pokemon's Offense is doubled, but Defenses halved.",
+			onModifyAtkPriority: 5,
+			onModifyAtk: function(atk) {
+				return this.chainModify(2);
+			},
+			onModifySpaPriority: 5,
+			onModifySpa: function(spa) {
+				return this.chainModify(2);
+			},
+			onModifyDefPriority: 5,
+			onModifyDef: function(def) {
+				return this.chainModify(.5);
+			},
+			onModifySpdPriority: 5,
+			onModifySpd: function(spd) {
+				return this.chainModify(.5);
+			},
+			id: "sharpcoral",
+			name: "Sharp Coral",
+			rating: 5,
+			num: 37
+		},
+	
+	
+	"petrify": {
+		desc: "When this Pokemon enters the field, the Speed stat of each of its opponents lowers by one stage.",
+		shortDesc: "On switch-in, this Pokemon lowers adjacent foes' Speed by 1.",
+		onStart: function(pokemon) {
+			var foeactive = pokemon.side.foe.active;
+			for (var i=0; i<foeactive.length; i++) {
+				if (!foeactive[i] || foeactive[i].fainted) continue;
+				if (foeactive[i].volatiles['substitute']) {
+					// does it give a message?
+					this.add('-activate',foeactive[i],'Substitute','ability: Petrify','[of] '+pokemon);
+				} else {
+					this.add('-ability',pokemon,'Petrify','[of] '+foeactive[i]);
+					this.boost({spe: -1}, foeactive[i], pokemon);
+				}
+			}
+		},
+		id: "petrify",
+		name: "Petrify",
+		rating: 3.5,
+		num: 22
+	},	
+	
+	
+	
+	"infuriate": {
+		desc: "Causes opponent's physical moves to increase the Pokemon's Attack by one stage.",
+		shortDesc: "If a physical attack hits this Pokemon, Attack is boosted 1.",
+		onAfterDamage: function(damage, target, source, move) {
+			if (move.category === 'Physical') {
+				this.boost({atk:1});
+			}
+		},
+		id: "infuriate",
+		name: "Infuriate",
+		rating: 3.5,
+		num: 133
+	},
+	
+	
+	"acceleration": {
+		desc: "This Pokemon receives a 50% power boost to priority attacks",
+		shortDesc: "This Pokemon's priority attacks do 1.5x damage.",
+		onBasePowerPriority: 8,
+		onBasePower: function(basePower, attacker, defender, move) {
+			if (move.priority === 1 || move.priority == 2) {
+				this.debug('Acceleration boost');
+				return this.chainModify(1.5);
+			}
+		},
+		id: "acceleration",
+		name: "Acceleration",
+		rating: 3,
+		num: 89
+	},
+
+
+
+	"elementalist": {
+		desc: "This Pokemon's Fire-type, Electric-type and Water-type attacks receive a 50% boost in power. (STAB)",
+		shortDesc: "Gives STAB to Fire, Electric and Water types.",
+		onModifyAtkPriority: 5,
+		onModifyAtk: function (atk, attacker, defender, move) {
+				if (move.type === 'Fire' || move.type === 'Water' ||  move.type === 'Electric') { // If move type is fire or water or electric
+						this.debug('Elementalist');
+						return this.chainModify(1.5);
+				}
+		},
+		onModifySpAPriority: 5,
+		onModifySpA: function (atk, attacker, defender, move) {
+				if (move.type === 'Fire' || move.type === 'Water' ||  move.type === 'Electric') { // If move type is fire or water or electric
+						this.debug('Elementalist');
+						return this.chainModify(1.5);
+				}
+		},
+		id: "elementalist",
+		name: "Elementalist",
+		rating: 2,
+		num: -10
+},
+
+
+	"lazy": {
+			desc: "Makes the pokemon fall asleep as soon they are sent to the battlefield",
+			shortDesc: "Upon entering the battlefield, the Pokemon Falls asleep.",
+			onStart: function (pokemon) {
+					pokemon.setStatus('slp')
+					this.debug('lazy - TODO: Make it a set 3 turns');
+					//this.add('-status', pokemon, 'slp', '[from] move: Rest'); // The status is the same from the move rest
+			},
+			id: "lazy",
+			name: "Lazy",
+			rating: -2,
+			num: -11
+	},		
 	"persistent": {
 		desc: "Increases the duration of many field effects by two turns when used by this Pokémon.",
 		shortDesc: "The duration of certain field effects is increased by 2 turns if used by this Pokemon.",

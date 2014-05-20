@@ -5215,7 +5215,7 @@ exports.BattleMovedex = {
 				for (var s in battle.sides) {
 					for (var p in battle.sides[s].active) {
 						if (battle.sides[s].active[p].runImmunity('Ground')) {
-							this.debug('PokÃ©mon is grounded, healing through Grassy Terrain.');
+							this.debug('Pokémon is grounded, healing through Grassy Terrain.');
 							this.heal(battle.sides[s].active[p].maxhp / 16, battle.sides[s].active[p], battle.sides[s].active[p]);
 						}
 					}
@@ -7090,7 +7090,7 @@ exports.BattleMovedex = {
 		accuracy: 100,
 		basePower: 65,
 		category: "Physical",
-		desc: "Deals damage to one adjacent target and causes it to drop its held item. Does 50% more damage if the target is holding an item. This move cannot force Pokemon with the Ability Sticky Hold to lose their held item, or force a Giratina, an Arceus, a Genesect, or a pokémon able to Mega-evolve to lose their Griseous Orb, Plate, Drive, or Mega Stone respectively. Items lost to this move cannot be regained with Recycle. Makes contact.",
+		desc: "Deals damage to one adjacent target and causes it to drop its held item. Does 50% more damage if the target is holding an item. This move cannot force Pokemon with the Ability Sticky Hold to lose their held item, or force a Giratina, an Arceus, a Genesect, or a pok�mon able to Mega-evolve to lose their Griseous Orb, Plate, Drive, or Mega Stone respectively. Items lost to this move cannot be regained with Recycle. Makes contact.",
 		shortDesc: "1.5x damage if foe holds an item. Removes item.",
 		id: "knockoff",
 		isViable: true,
@@ -7763,7 +7763,7 @@ exports.BattleMovedex = {
 		accuracy: true,
 		basePower: 0,
 		category: "Status",
-		desc: "Raises the Defense and Sp. Def stats of ally PokÃ©mon with the Plus or Minus Ability.",
+		desc: "Raises the Defense and Sp. Def stats of ally Pokémon with the Plus or Minus Ability.",
 		shortDesc: "Raises defenses of ally Pokemon with Plus/Minus.",
 		id: "magneticflux",
 		name: "Magnetic Flux",
@@ -13244,7 +13244,7 @@ exports.BattleMovedex = {
 		accuracy: 100,
 		basePower: 0,
 		category: "Status",
-		desc: "The user trades its held item with one adjacent target. Fails if either the user or the target is holding a Mail, if neither is holding an item, or if the user is trying to give or take a Griseous Orb, a Plate, a Drive, or a Mega Stone to or from a Giratina, an Arceus, a Genesect, or a pokémon able to Mega-evolve respectively. Pokemon with the Ability Sticky Hold are immune.",
+		desc: "The user trades its held item with one adjacent target. Fails if either the user or the target is holding a Mail, if neither is holding an item, or if the user is trying to give or take a Griseous Orb, a Plate, a Drive, or a Mega Stone to or from a Giratina, an Arceus, a Genesect, or a pok�mon able to Mega-evolve respectively. Pokemon with the Ability Sticky Hold are immune.",
 		shortDesc: "User switches its held item with the target's.",
 		id: "switcheroo",
 		isViable: true,
@@ -13996,7 +13996,7 @@ exports.BattleMovedex = {
 		accuracy: 100,
 		basePower: 0,
 		category: "Status",
-		desc: "The user trades its held item with one adjacent target. Fails if either the user or the target is holding a Mail, if neither is holding an item, or if the user is trying to give or take a Griseous Orb, a Plate, a Drive, or a Mega Stone to or from a Giratina, an Arceus, a Genesect, or a pokémon able to Mega-evolve respectively. Pokemon with the Ability Sticky Hold are immune.",
+		desc: "The user trades its held item with one adjacent target. Fails if either the user or the target is holding a Mail, if neither is holding an item, or if the user is trying to give or take a Griseous Orb, a Plate, a Drive, or a Mega Stone to or from a Giratina, an Arceus, a Genesect, or a pok�mon able to Mega-evolve respectively. Pokemon with the Ability Sticky Hold are immune.",
 		shortDesc: "User switches its held item with the target's.",
 		id: "trick",
 		isViable: true,
@@ -15189,6 +15189,175 @@ exports.BattleMovedex = {
 		target: "normal",
 		type: "Water"
 	},
+		"metalwhip": {
+			num: 42,
+			accuracy: 100,
+			basePower: 15,
+			category: "Physical",
+			desc: "Deals damage to one adjacent target and hits two to five times. Has a 1/3 chance to hit two or three times, and a 1/6 chance to hit four or five times. If one of the hits breaks the target's Substitute, it will take damage for the remaining hits. If the user has the Ability Skill Link, this move will always hit five times-Uranium Move.",
+			shortDesc: "Hits 2-5 times in one turn-Uranium Move.",
+			id: "metalwhip",
+			name: "Metal Whip",
+			pp: 20,
+			priority: 0,
+			multihit: [2,5],
+			secondary: false,
+			target: "normal",
+			type: "Steel"
+		},
+		
+		
+		
+		
+	"skyfall": {
+			num: 34,
+			accuracy: 100,
+			basePower: 70,
+			category: "Physical",
+			desc: "Deals damage to one adjacent target with a 30% chance to paralyze it. Makes contact-Uranium Move.",
+			shortDesc: "30% chance to paralyze the target-Uranium Move.",
+			id: "skyfall",
+			isViable: true,
+			name: "Skyfall",
+			pp: 15,
+			priority: 0,
+			isContact: true,
+			secondary: {
+				chance: 30,
+				status: 'par'
+			},
+			target: "normal",
+			type: "Flying"
+		},	
+		
+		
+		
+	"flameimpact": {
+			num: 245,
+			accuracy: 100,
+			basePower: 65,
+			category: "Physical",
+			desc: "Deals damage to one adjacent target. Makes contact. Priority +2-Uranium Move.",
+			shortDesc: "Nearly always goes first-Uranium Move.",
+			id: "flameimpact",
+			isViable: true,
+			name: "Flame Impact",
+			pp: 10,
+			priority: 2,
+			isContact: true,
+			secondary: false,
+			target: "normal",
+			type: "Fire"
+		},	
+
+
+		"subduction": {
+			num: 490,
+			accuracy: 90,
+			basePower: 140,
+			category: "Physical",
+			desc: "Deals damage to one adjacent target with a 100% chance to lower its Speed by 2 stages, but Confuses User. Makes contact-Uranium Move.",
+			shortDesc: "100% chance to lower the target's Speed by 2, Confuses user-Uranium Move.",
+			id: "subduction",
+			name: "Subduction",
+			pp: 10,
+			priority: 0,
+			isContact: true,
+			self: {
+				volatileStatus: 'confusion'
+			},
+			secondary: {
+				chance: 100,
+				boosts: {
+					spe: -2
+				}
+			},
+			target: "normal",
+			type: "Ground"
+		
+		},
+		
+		
+	"atomicpunch": {
+			num: 183,
+			accuracy: 100,
+			basePower: 40,
+			category: "Physical",
+			desc: "Deals damage to one adjacent target. Makes contact. Damage is boosted to 1.2x by the Ability Iron Fist. Priority +1-Uranium Move.",
+			shortDesc: "Usually goes first-Uranium Move.",
+			id: "atomicpunch",
+			isViable: true,
+			name: "Atomic Punch",
+			pp: 30,
+			priority: 1,
+			isContact: true,
+			isPunchAttack: true,
+			secondary: false,
+			target: "normal",
+			type: "Nuclear"
+		},	
+		
+	"halflife": {
+			num: 162,
+			accuracy: 90,
+			basePower: 0,
+			damageCallback: function(pokemon, target) {
+				return target.hp/2;
+			},
+			category: "Physical",
+			desc: "Deals damage to one adjacent target equal to half of its current HP, rounded down, but not less than 1HP. Makes contact-Uranium Move.",
+			shortDesc: "Does damage equal to 1/2 target's current HP-Uranium Move.",
+			id: "halflife",
+			isViable: true,
+			name: "Half-Life",
+			pp: 10,
+			priority: 0,
+			isContact: true,
+			secondary: false,
+			target: "normal",
+			type: "Nuclear"
+		},	
+		
+	"radioacid": {
+			num: 92,
+			accuracy: 90,
+			basePower: 0,
+			category: "Status",
+			desc: "Badly poisons one adjacent target. Pokemon protected by Magic Coat or the Ability Magic Bounce are unaffected and instead use this move themselves-Uranium Move.",
+			shortDesc: "Badly poisons the target-Uranium Move.",
+			id: "radioacid",
+			isViable: true,
+			name: "Radioacid",
+			pp: 10,
+			priority: 0,
+			onModifyMove: function(move, pokemon) {
+				if (pokemon.hasType('Poison')) {
+					move.accuracy = true;
+					move.alwaysHit = true;
+				}
+			},
+			status: 'tox',
+			secondary: false,
+			target: "normal",
+			type: "Nuclear"
+		},	
+		
+	"fallout": {
+			num: 258,
+			accuracy: true,
+			basePower: 0,
+			category: "Status",
+			desc: "For 5 turns, the weather becomes Fallout. At the end of each turn except the last, all active Pokemon lose 1/16 of their maximum HP, rounded down, unless they are a Nuclear-type. Fails if the current weather is Fallout-Uranium Move.",
+			shortDesc: "For 5 turns, Nuclear Fallout rains down-Uranium Move.",
+			id: "fallout",
+			name: "Fallout",
+			pp: 10,
+			priority: 0,
+			weather: 'hail',
+			secondary: false,
+			target: "all",
+			type: "Nuclear"
+		},	
 	// Added ReRoot for Thornata
 	"reroot": {
 		num: 521,

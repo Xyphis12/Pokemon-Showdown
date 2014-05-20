@@ -4790,6 +4790,904 @@ exports.BattleFormatsData = {
         isNonstandard: true,
         tier: "Lab"
 	},
+		orchynx: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	metalynx: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	raptorch: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	archilles: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	eletux: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	electruxo: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	chyinmunk: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	kinetmunk: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	empirilla: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	owten: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	eshowten: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	barewl: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	gararewl: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	grozard: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	terlard: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	tonemy: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	tofurang: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	fortog: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	folerog: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	blubelrog: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	smore: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	firoke: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	sponee: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	sponaree: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	barand: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	baashaun: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	baaschaf: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	baariette: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	pahar: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	pajay: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	tancoon: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	tanscure: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	costraw: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	trawpint: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	tricwe: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	harylect: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	dunseraph: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	brailip: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	brainoar: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	modrille: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	drilgann: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	gligger: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	glaslug: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	glavinug: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	s51: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	s51a: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	feleng: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	felunge: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	feliger: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	corsoreef: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	tubjaw: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	tubareel: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	cocaran: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	cararalm: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	cocancer: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	nupin: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	gellin: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	tracton: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	chicoatl: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	quetzoral: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	coatlith: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	flager: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	inflagetah: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	chimical: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	chimaconda: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	snopach: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	dermafrost: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	slothohm: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	theriamp: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	titanice: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	frynai: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	saidine: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	daikatuna: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	selkid: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	syrentide: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	masking: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	dramsama: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+
+	antakari: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	jackdeary: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	witnotinger: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	chupacho: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	luchabra: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	linkite: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	chainite: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	gargryph: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	nucleon: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	duplicat: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	ratsy: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	raffiti: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	shrimputy: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	krilvolver: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	lavent: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	pufluff: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	alpico: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	anderind: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	fafurr: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	fafninter: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+
+	 
+	sheebit: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	terrabbit: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	laissure: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	volchik: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	voltasu: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	seikamater: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	garlikid: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	baitatao: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	leviathao: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	krakanao: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	lathan: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	actan: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	urayne: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	zephy: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+	 
+	yatagaryu: {
+			viableMoves:{
+					"protect":1,
+			},
+			isNonstandard: true,
+			tier: "Uranium"
+	},
+
 	embuzzle: {
         viableMoves:{"electricterrain":1},
         isNonstandard: true,

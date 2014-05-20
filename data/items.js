@@ -4444,6 +4444,143 @@ exports.BattleItems = {
 		gen: 4,
 		desc: "Holder's Electric-type attacks have 1.2x power. Judgment is Electric-type."
 	},
+		"metalynxite": {
+			id: "metalynxite",
+			name: "Metalynxite",
+			spritenum: 0,
+			megaStone: "Metalynx-Mega",
+			megaEvolves: "Metalynx",
+			onTakeItem: function(item, source) {
+				if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+				return true;
+			},
+			num: -10001,
+			gen: 6,
+			desc: "Mega-evolves Metalynx."
+		},
+		
+		
+		
+	"archillite": {
+			id: "archillite",
+			name: "Archillite",
+			spritenum: 0,
+			megaStone: "Archilles-Mega",
+			megaEvolves: "Archilles",
+			onTakeItem: function(item, source) {
+				if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+				return true;
+			},
+			num: -10002,
+			gen: 6,
+			desc: "Mega-evolves Archilles."
+		},
+		
+		
+	"electruxite": {
+			id: "electruxite",
+			name: "Electruxite",
+			spritenum: 0,
+			megaStone: "Electruxo-Mega",
+			megaEvolves: "Electruxo",
+			onTakeItem: function(item, source) {
+				if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+				return true;
+			},
+			num: -10003,
+			gen: 6,
+			desc: "Mega-evolves Electruxo."
+		},	
+		
+	"baariettite": {
+			id: "baariettite",
+			name: "Baariettite",
+			spritenum: 0,
+			megaStone: "Baariette-Mega",
+			megaEvolves: "Baariette",
+			onTakeItem: function(item, source) {
+				if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+				return true;
+			},
+			num: -10004,
+			gen: 6,
+			desc: "Mega-evolves Baariette."
+		},	
+
+	"drilganite": {
+			id: "drilganite",
+			name: "Drilganite",
+			spritenum: 0,
+			megaStone: "Drilgann-Mega",
+			megaEvolves: "Drilgann",
+			onTakeItem: function(item, source) {
+				if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+				return true;
+			},
+			num: -10005,
+			gen: 6,
+			desc: "Mega-evolves Drilgann."
+		},	
+
+	"inflagite": {
+			id: "inflagite",
+			name: "Inflagite",
+			spritenum: 0,
+			megaStone: "Inflagetah-Mega",
+			megaEvolves: "Inflagetah",
+			onTakeItem: function(item, source) {
+				if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+				return true;
+			},
+			num: -10006,
+			gen: 6,
+			desc: "Mega-evolves Inflagetah."
+		},	
+
+	"daikatunite": {
+			id: "daikatunite",
+			name: "Daikatunite",
+			spritenum: 0,
+			megaStone: "Daikatuna-Mega",
+			megaEvolves: "Daikatuna",
+			onTakeItem: function(item, source) {
+				if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+				return true;
+			},
+			num: -10007,
+			gen: 6,
+			desc: "Mega-evolves daikatunite."
+		},
+
+		"dramsamite": {
+			id: "dramsamite",
+			name: "Dramsamite",
+			spritenum: 0,
+			megaStone: "Dramsama-Mega",
+			megaEvolves: "Dramsama",
+			onTakeItem: function(item, source) {
+				if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+				return true;
+			},
+			num: -10008,
+			gen: 6,
+			desc: "Mega-evolves Dramsama."
+		},	
+		
+	"fafnintite": {
+			id: "fafnintite",
+			name: "Fafnintite",
+			spritenum: 0,
+			megaStone: "Fafninter-Mega",
+			megaEvolves: "Fafninter",
+			onTakeItem: function(item, source) {
+				if (item.megaEvolves === source.baseTemplate.baseSpecies) return false;
+				return true;
+			},
+			num: -10009,
+			gen: 6,
+			desc: "Mega-evolves Fafninter."
+		},		
 	"zoomlens": {
 		id: "zoomlens",
 		name: "Zoom Lens",
