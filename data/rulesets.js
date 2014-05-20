@@ -215,12 +215,19 @@ exports.BattleFormats = {
 	},
 	
 	labpokemon: {
-		effectType: 'Rule', // For this, it's usually a Rule or Banlist
+		effectType: 'Rule',
 		validateSet: function(set, format) {
 			return this.getEffect('Pokemon').validateSet.call(this, set, format, true);
 		}
 	},
 
+	uraniumpokemon: {
+		effectType: 'Rule',
+		validateSet: function(set, format) {
+			return this.getEffect('Pokemon').validateSet.call(this, set, format, true);
+		}
+	},
+	
 	kalospokedex: {
 		effectType: 'Rule',
 		validateSet: function (set) {
