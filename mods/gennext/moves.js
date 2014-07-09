@@ -48,6 +48,10 @@ exports.BattleMovedex = {
 		inherit: true,
 		basePower: 90
 	},
+	clearsmog: {
+		inherit: true,
+		basePower: 90
+	},
 	/******************************************************************
 	HMs:
 	- shouldn't suck (as much)
@@ -145,7 +149,7 @@ exports.BattleMovedex = {
 					return;
 				}
 				if (move.category === 'Status') {
-					if (move.notSubBlocked) {
+					if (move.notSubBlocked || move.isSoundBased) {
 						return;
 					}
 					var SubBlocked = {
@@ -290,12 +294,19 @@ exports.BattleMovedex = {
 		onTryHit: function (target) {
 			target.removeVolatile('substitute');
 		},
-		effect: {
-			duration: 2,
-			onLockMove: 'skullbash',
-			onStart: function (pokemon) {
-				this.boost({def:1, spd:1, accuracy:1}, pokemon, pokemon, this.getMove('skullbash'));
+				onTry: function (attacker, defender, move) {
+			if (attacker.removeVolatile(move.id)) {
+				return;
 			}
+			this.add('-prepare', attacker, move.name, defender);
+			if (!this.runEvent('ChargeMove', attacker, defender, move)) {
+				this.add('-anim', attacker, move.name, defender);
+				attacker.removeVolatile(move.id);
+				return;
+			}
+			attacker.addVolatile('twoturnmove', defender);
+			this.boost({def:1, spd:1, accuracy:1}, attacker, attacker, this.getMove('skullbash'));
+			return null;
 		},
 		breaksProtect: true
 	},
@@ -707,26 +718,6 @@ exports.BattleMovedex = {
 			}
 		}
 	},
-	quiverdance: {
-		// Quiver Dance is nerfed because Volc
-		inherit: true,
-		boosts: {
-			spd: 1,
-			spe: 1,
-			accuracy: 1
-		},
-		onModifyMove: function (move, user) {
-			var GossamerWingUsers = {"Butterfree":1, "Masquerain":1, "Beautifly":1, "Mothim":1, "Lilligant":1, "Vivillon":1};
-			if (user.item === 'stick' && GossamerWingUsers[user.template.species]) {
-				move.boosts = {
-					spa: 1,
-					spd: 1,
-					spe: 1,
-					accuracy: 1
-				};
-			}
-		}
-	},
 	/******************************************************************
 	Silver Wind, Ominous Wind, AncientPower:
 	- 100% chance of raising one stat, instead of 10% chance of raising
@@ -949,6 +940,14 @@ exports.BattleMovedex = {
 		inherit: true,
 		accuracy: true
 	},
+	triplekick: {
+		inherit: true,
+		accuracy: true
+	},
+	watershuriken: {
+		inherit: true,
+		accuracy: true
+	},
 	/******************************************************************
 	Draining moves:
 	- buff Leech Life
@@ -971,6 +970,12 @@ exports.BattleMovedex = {
 	twister: {
 		inherit: true,
 		basePower: 80,
+		onBasePower: function (power, user) {
+			var GossamerWingUsers = {"Butterfree":1, "Venomoth":1, "Masquerain":1, "Dustox":1, "Beautifly":1, "Mothim":1, "Lilligant":1, "Volcarona":1, "Vivillon":1};
+			if (user.item === 'stick' && GossamerWingUsers[user.template.species]) {
+				return power * 1.5;
+			}
+		},
 		secondary: {
 			chance: 30,
 			volatileStatus: 'confusion'
@@ -1059,7 +1064,7 @@ exports.BattleMovedex = {
 		willCrit: true
 	},
 	/******************************************************************
-	Scald:
+	Scald and Steam eruption:
 	- base power not affected by weather
 	- 60% burn in sun
 
@@ -1067,6 +1072,16 @@ exports.BattleMovedex = {
 	- rain could use a nerf
 	******************************************************************/
 	scald: {
+		inherit: true,
+		onModifyMove: function (move) {
+			switch (this.effectiveWeather()) {
+			case 'sunnyday':
+				move.secondary.chance = 60;
+				break;
+			}
+		}
+	},
+	steameruption: {
 		inherit: true,
 		onModifyMove: function (move) {
 			switch (this.effectiveWeather()) {
@@ -1626,6 +1641,7 @@ exports.BattleMovedex = {
 	******************************************************************/
 	twineedle: {
 		inherit: true,
+		accuracy: true,
 		basePower: 50
 	},
 	drillpeck: {
