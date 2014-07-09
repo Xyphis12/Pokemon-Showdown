@@ -754,12 +754,12 @@ var BattlePokemon = (function () {
 	};
 	// returns the amount of damage actually dealt
 	BattlePokemon.prototype.faint = function (source, effect) {
-		if (this.fainted) return 0;
+		if (this.fainted || this.status === 'fnt') return 0;
 		var d = this.hp;
 		this.hp = 0;
 		this.switchFlag = false;
 		this.status = 'fnt';
-		//this.fainted = true;
+		// this.fainted = true;
 		this.battle.faintQueue.push({
 			target: this,
 			source: source,
@@ -962,7 +962,7 @@ var BattlePokemon = (function () {
 		return false;
 	};
 	BattlePokemon.prototype.takeItem = function (source) {
-		if (!this.hp || !this.isActive) return false;
+		if (!this.isActive) return false;
 		if (!this.item) return false;
 		if (!source) source = this;
 		var item = this.getItem();
@@ -1003,17 +1003,18 @@ var BattlePokemon = (function () {
 	BattlePokemon.prototype.setAbility = function (ability, source, effect, noForce) {
 		if (!this.hp) return false;
 		ability = this.battle.getAbility(ability);
-		if (noForce && this.ability === ability.id) {
+		var oldAbility = this.ability;
+		if (noForce && oldAbility === ability.id) {
 			return false;
 		}
 		if (ability.id in {illusion:1, multitype:1, stancechange:1}) return false;
-		if (this.ability in {multitype:1, stancechange:1}) return false;
+		if (oldAbility in {multitype:1, stancechange:1}) return false;
 		this.ability = ability.id;
 		this.abilityData = {id: ability.id, target: this};
 		if (ability.id) {
 			this.battle.singleEvent('Start', ability, this.abilityData, this, source, effect);
 		}
-		return true;
+		return oldAbility;
 	};
 	BattlePokemon.prototype.getAbility = function () {
 		return this.battle.getAbility(this.ability);
@@ -1034,8 +1035,8 @@ var BattlePokemon = (function () {
 	};
 	BattlePokemon.prototype.addVolatile = function (status, source, sourceEffect) {
 		var result;
-		if (!this.hp) return false;
 		status = this.battle.getEffect(status);
+		if (!this.hp && !status.affectsFainted) return false;
 		if (this.battle.event) {
 			if (!source) source = this.battle.event.source;
 			if (!sourceEffect) sourceEffect = this.battle.effect;
@@ -1120,7 +1121,7 @@ var BattlePokemon = (function () {
 	};
 	BattlePokemon.prototype.setType = function (newType, enforce) {
 		// Arceus first type cannot be normally changed
-		if (!enforce && this.num === 493) return false;
+		if (!enforce && this.template.num === 493) return false;
 
 		this.typesData = [{
 			type: newType,
@@ -2219,9 +2220,6 @@ var Battle = (function () {
 		return null;
 	};
 	Battle.prototype.makeRequest = function (type, requestDetails) {
-		if (!this.p1.isActive || !this.p2.isActive) {
-			return;
-		}
 		if (type) {
 			this.currentRequest = type;
 			this.rqid++;
@@ -2456,15 +2454,16 @@ var Battle = (function () {
 	};
 	Battle.prototype.swapPosition = function (source, newPos, from) {
 		var target = source.side.active[newPos];
-		if (target.fainted) return false;
+		if (newPos !== 1 && (!target || target.fainted)) return false;
+		this.add('swap', source, newPos, (from ? '[from] ' + from : ''));
+
 		var side = source.side;
 		side.pokemon[source.position] = target;
 		side.pokemon[newPos] = source;
 		side.active[source.position] = side.pokemon[source.position];
 		side.active[newPos] = side.pokemon[newPos];
-		target.position = source.position;
+		if (target) target.position = source.position;
 		source.position = newPos;
-		this.add('swap', source, target, (from ? '[from] ' + from : ''));
 		return true;
 	};
 	Battle.prototype.faint = function (pokemon, source, effect) {
@@ -2578,7 +2577,7 @@ var Battle = (function () {
 		this.runEvent('AfterBoost', target, source, effect, boost);
 		return success;
 	};
-	Battle.prototype.damage = function (damage, target, source, effect) {
+	Battle.prototype.damage = function (damage, target, source, effect, instafaint) {
 		if (this.event) {
 			if (!target) target = this.event.target;
 			if (!source) source = this.event.source;
@@ -2629,8 +2628,9 @@ var Battle = (function () {
 			this.heal(Math.ceil(damage * effect.drain[0] / effect.drain[1]), source, target, 'drain');
 		}
 
-		if (target.fainted) {
-			this.faint(target);
+		if (instafaint && !target.hp) {
+			this.debug('instafaint: '+this.faintQueue.map('target').map('name'));
+			this.faintMessages(true);
 		} else {
 			damage = this.runEvent('AfterDamage', target, source, effect, damage);
 		}
@@ -2942,17 +2942,17 @@ var Battle = (function () {
 
 		var sourceLoc = -(source.position + 1);
 		var isFoe = (targetLoc > 0);
-		var isAdjacent = (isFoe ? Math.abs(-(numSlots + 1 - targetLoc) - sourceLoc) <= 1 : Math.abs(targetLoc - sourceLoc) <= 1);
+		var isAdjacent = (isFoe ? Math.abs(-(numSlots + 1 - targetLoc) - sourceLoc) <= 1 : Math.abs(targetLoc - sourceLoc) === 1);
 		var isSelf = (sourceLoc === targetLoc);
 
 		switch (targetType) {
 		case 'randomNormal':
 		case 'normal':
-			return isAdjacent && !isSelf;
+			return isAdjacent;
 		case 'adjacentAlly':
-			return isAdjacent && !isSelf && !isFoe;
-		case 'adjacentAllyOrSelf':
 			return isAdjacent && !isFoe;
+		case 'adjacentAllyOrSelf':
+			return isAdjacent && !isFoe || isSelf;
 		case 'adjacentFoe':
 			return isAdjacent && isFoe;
 		case 'any':
@@ -3036,9 +3036,14 @@ var Battle = (function () {
 		var p1fainted = this.p1.active.map(isFainted);
 		var p2fainted = this.p2.active.map(isFainted);
 	};
-	Battle.prototype.faintMessages = function () {
+	Battle.prototype.faintMessages = function (lastFirst) {
+		if (this.ended) return;
+		if (lastFirst && this.faintQueue.length) {
+			this.faintQueue.unshift(this.faintQueue.pop());
+		}
+		var faintData;
 		while (this.faintQueue.length) {
-			var faintData = this.faintQueue.shift();
+			faintData = this.faintQueue.shift();
 			if (!faintData.target.fainted) {
 				this.add('faint', faintData.target);
 				this.runEvent('Faint', faintData.target, faintData.source, faintData.effect);
@@ -3050,7 +3055,7 @@ var Battle = (function () {
 			}
 		}
 		if (!this.p1.pokemonLeft && !this.p2.pokemonLeft) {
-			this.win();
+			this.win(faintData && faintData.target.side);
 			return true;
 		}
 		if (!this.p1.pokemonLeft) {
@@ -3291,6 +3296,12 @@ var Battle = (function () {
 				}
 			}
 			if (decision.pokemon && !decision.pokemon.hp && !decision.pokemon.fainted) {
+				if (this.gen <= 4) {
+					decision.priority = -101;
+					this.addQueue(decision, true);
+					this.debug('Pursuit target fainted');
+					break;
+				}
 				this.debug('A Pokemon can\'t switch between when it runs out of HP and when it faints');
 				break;
 			}
